@@ -1,0 +1,26 @@
+#Connect-AzAccount
+
+Write-Host "Gathering storage account information...`n"
+[System.Collections.ArrayList]$saUsage = New-Object -TypeName System.Collections.ArrayList
+
+$subscriptions = Get-AzSubscription 
+
+
+foreach ($subscription in $subscriptions){
+    
+    Set-AzContext -SubscriptionObject $subscription
+    $allResourceGroups = Get-AzResourceGroup 
+    
+    foreach($ResourceGroup in $allResourceGroups){
+        $ResourceGroupName = $ResourceGroup.ResourceGroupName
+        $Metrics = Get-AzMetricAlertRuleV2  -ResourceGroupName $ResourceGroupName
+        
+        foreach($metric in $Metrics){
+            
+            $metric
+            $metric.Criteria
+        }
+
+    }
+}
+#$saUsage | Export-Csv -Path C:\Temp\StorageAccounts-TLS-Versions.csv -NoTypeInformation
