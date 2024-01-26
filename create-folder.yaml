@@ -1,4 +1,4 @@
-- hosts: All
+- hosts: kubernetes
   become: yes
   vars:
     dir_name: "testing"
