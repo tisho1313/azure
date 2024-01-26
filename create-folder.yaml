@@ -5,7 +5,7 @@
   tasks:
   - name: Mkdir /home/dir
     file: 
-      path=/etc/{{dir_name}}
+      path=/home/{{dir_name}}
       state=directory
     become: yes
     become_user: root
