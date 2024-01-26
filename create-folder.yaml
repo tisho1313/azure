@@ -1,4 +1,4 @@
-- hosts: nfs
+- hosts: All
   become: yes
   vars:
     dir_name: "testing"
