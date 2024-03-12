@@ -12,8 +12,9 @@ foreach ($subscription in $subscriptions)  {
     $context = Get-AzContext
     
 
-    $storageAccounts = Get-AzStorageAccount
-    
+    #$storageAccounts = Get-AzStorageAccount
+    $storageAccounts = Get-AzResource -ResourceType  "Microsoft.Storage/storageAccounts"
+  
     foreach ($storageAccount in $storageAccounts) {
 
             $StorageAccountDetails = [ordered]@{
@@ -21,10 +22,12 @@ foreach ($subscription in $subscriptions)  {
                 ResourceGroup = $storageAccount.ResourceGroupName
                 Location = $storageAccount.Location
                 SubscrpitionName = $context.Subscription.Name
-                StorageAccountName = $storageAccount.StorageAccountName
+                StorageAccountName = $storageAccount.Name
                 TLSVersion = $storageAccount.MinimumTlsVersion
             }
         $saUsage.add((New-Object psobject -Property $StorageAccountDetails)) | Out-Null
     }
 }
-$saUsage | Export-Csv -Path C:\Temp\StorageAccounts-TLS-Versions.csv -NoTypeInformation
+$CurrentPath = Get-Location
+$CurrentPath = $CurrentPath.Path + "\StorageAccounts-TLS-Versions.csv"
+$saUsage | Export-Csv -Path $CurrentPath -NoTypeInformation
