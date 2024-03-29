@@ -24,7 +24,7 @@ foreach ($sub in $subscriptions) {
         }
     } 
     else {
-        Write-Host ( "# No classic administrators found")
+        Write-Host ( "No classic administrators found")
     }
 }
 
@@ -33,5 +33,5 @@ $CurrentPath = $CurrentPath.Path + "\DTFS-classicAdmins.csv"
 $saUsage | Export-Csv -Path $CurrentPath -NoTypeInformation
 
 
-Write-Host ("# Script completed" )
+Write-Host ("Script completed" )
 
